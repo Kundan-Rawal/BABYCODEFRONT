@@ -14,60 +14,23 @@ const defaultStudents = [
     course: 'Btech',
     img: 'https://d2kf8ptlxcina8.cloudfront.net/8ADWVBHPEK-preview.png',
   },
-  {
-    id: 'BT2',
-    name: 'Bob',
-    email: 'bob@example.com',
-    course: 'Btech',
-    img: 'https://d2kf8ptlxcina8.cloudfront.net/8ADWVBHPEK-preview.png',
-  },
-  {
-    id: 'BT3',
-    name: 'Daniel',
-    email: 'dani@example.com',
-    course: 'Btech',
-    img: 'https://d2kf8ptlxcina8.cloudfront.net/8ADWVBHPEK-preview.png',
-  },
-  {
-    id: 'BT4',
-    name: 'Kundan',
-    email: 'Kundan@example.com',
-    course: 'Btech',
-    img: 'https://d2kf8ptlxcina8.cloudfront.net/8ADWVBHPEK-preview.png',
-  },
-  {
-    id: 'BC5',
-    name: 'Anu',
-    email: 'Anuriti@gamil.com',
-    course: 'BCA',
-    img: 'https://d2kf8ptlxcina8.cloudfront.net/8ADWVBHPEK-preview.png',
-  },
-  {
-    id: 'BC6',
-    name: 'ritik',
-    email: 'ritik@gamil.com',
-    course: 'BCA',
-    img: 'https://d2kf8ptlxcina8.cloudfront.net/8ADWVBHPEK-preview.png',
-  },
-  {
-    id: 'BC7',
-    name: 'evy',
-    email: 'Anuriti@gamil.com',
-    course: 'BCA',
-    img: 'https://d2kf8ptlxcina8.cloudfront.net/8ADWVBHPEK-preview.png',
-  },
+  // More default students...
 ];
 
-// Load existing from localStorage
+// Load existing students from localStorage
 let students = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-const mergedStudents = [...students, ...defaultStudents];
-localStorage.setItem(STORAGE_KEY, JSON.stringify(mergedStudents));
-// If not initialized before, merge and save
 
-// GET /students
-mock.onGet('/students').reply(200, mergedStudents);
+// Initialize students if not done already
+if (!localStorage.getItem(MERGED_KEY)) {
+  const mergedStudents = [...students, ...defaultStudents];
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(mergedStudents));
+  localStorage.setItem(MERGED_KEY, 'true'); // Mark initialization as done
+}
 
-// POST /students
+// Mock GET /students
+mock.onGet('/students').reply(200, students);
+
+// Mock POST /students
 mock.onPost('/students').reply((config) => {
   const newStudent = JSON.parse(config.data);
 
@@ -78,7 +41,7 @@ mock.onPost('/students').reply((config) => {
     return [400, { message: 'Duplicate ID or Email' }];
   }
 
-  mergedStudents.push(newStudent);
+  students.push(newStudent);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(students));
 
   return [201, newStudent];
