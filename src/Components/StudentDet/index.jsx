@@ -43,7 +43,7 @@ const StudentDet = () => {
               <option value="">All Courses</option>
               <option value="Btech">Btech</option>
               <option value="Mtech">Mtech</option>
-              <option value="Mtech">BCA</option>
+              <option value="BCA">BCA</option>
               <option value="MBA">MBA</option>
             </select>
           </div>

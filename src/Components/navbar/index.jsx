@@ -1,24 +1,19 @@
 import './index.css';
 import { signOut } from 'firebase/auth';
-import { auth } from '../../../firebase'; // Adjust path if needed
-import { useNavigate } from 'react-router-dom'; // ✅ Add this
+import { auth } from '../../../firebase';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
-  const navigate = useNavigate(); // ✅ Use this hook to redirect
+  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        // Clear all data from localStorage
-        localStorage.clear();
-
-        // Optionally, set user to null in state
-        setUser(null);
-
-        // Redirect to the login page
-        navigate('/login');
-      })
-      .catch((error) => console.error('Logout error', error));
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      localStorage.clear(); // Clear user data
+      navigate('/login'); // Redirect to login page
+    } catch (error) {
+      console.error('Logout error', error);
+    }
   };
 
   return (
@@ -33,7 +28,7 @@ const Navbar = () => {
           BabyCode
         </h2>
       </div>
-      <button onClick={handleLogout} className="logoutbutton ">
+      <button onClick={handleLogout} className="logoutbutton">
         Logout
       </button>
     </div>
