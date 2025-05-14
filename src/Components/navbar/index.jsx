@@ -9,12 +9,16 @@ const Navbar = () => {
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
-        console.log('User signed out');
-        navigate('/login'); // ✅ Now this will work
+        // Clear all data from localStorage
+        localStorage.clear();
+
+        // Optionally, set user to null in state
+        setUser(null);
+
+        // Redirect to the login page
+        navigate('/login');
       })
-      .catch((error) => {
-        console.error('Error signing out:', error);
-      });
+      .catch((error) => console.error('Logout error', error));
   };
 
   return (
