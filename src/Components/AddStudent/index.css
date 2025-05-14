@@ -1,0 +1,68 @@
+.add-student-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+  }
+  
+  .submit-btn {
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .submit-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .popup {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #008e05;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+  }
+  
+  .popup button {
+    background-color: white;
+    border: none;
+    color: #008e05;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 10px;
+  }
+  
